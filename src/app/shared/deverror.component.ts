@@ -13,6 +13,11 @@ export class DevErrorComponent implements AfterViewInit {
   lastError: Observable<ErrorInfo>;
   constructor (private store: Store<AppState>) { 
       this.lastError = store.select(t=>t.errors.lastError);
+      this.lastError.subscribe(t=> {
+        if (t != null) {
+          this.openDialog();
+        }
+      });
   }
  
   ngAfterViewInit() {
@@ -22,11 +27,6 @@ export class DevErrorComponent implements AfterViewInit {
         keyboard: false
       });
 
-      this.lastError.subscribe(t=> {
-        if (t != null) {
-          this.openDialog();
-        }
-      });
 
   }
 

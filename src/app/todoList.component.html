@@ -1,0 +1,28 @@
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">To Do Items <notification></notification></div>
+  <div class="panel-body">
+    <p>Add To Do Items.</p>
+  </div>
+
+  <!-- Table -->
+  <table class="table">
+    <thead>
+      <tr>
+        <td>ID</td>
+        <td>Name</td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let item of items">
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td><button class="btn btn-xs btn-danger pull-right" (click)="remove(item)">Remove</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+ {{ change() }}

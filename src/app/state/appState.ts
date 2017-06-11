@@ -1,7 +1,9 @@
 import { Todo } from "./todoReducer";
 import { ErrorState } from "./errorReducer";
+import { NotificationState } from "./notificationReducer";
 
 export interface AppState {
     todos: Todo[],
-    errors: ErrorState
+    errors: ErrorState,
+    notifications: NotificationState
 }

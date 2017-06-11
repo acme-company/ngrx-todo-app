@@ -11,17 +11,33 @@ import { DevErrorComponent } from "./shared/deverror.component";
 import { GlobalErrorHandler } from "./shared/globalErrorHandler";
 import { errorReducer } from "./state/errorReducer";
 import { todoReducer } from './state/todoReducer';
+import { notificationReducer } from "./state/notificationReducer";
+import { NotificationComponent } from "./shared/notification.component";
+import { NotificationService } from "./services/notification.service";
 
 @NgModule({
   imports:      [ 
     BrowserModule,
     ReactiveFormsModule,
-    StoreModule.provideStore({ todos: todoReducer, errors: errorReducer })
+    StoreModule.provideStore(
+      { 
+          todos: todoReducer, 
+          errors: errorReducer,
+          notifications: notificationReducer
+      })
  ],
-  declarations: [ AppComponent, TodoListComponent, AddTodoComponent, DevErrorComponent, ErrorComponent ],
+  declarations: [ 
+    AppComponent, 
+    TodoListComponent, 
+    AddTodoComponent, 
+    DevErrorComponent, 
+    ErrorComponent,
+    NotificationComponent 
+  ],
   providers: [
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
-    TodoService
+    TodoService,
+    NotificationService
   ],
   bootstrap:    [ AppComponent, DevErrorComponent ]
 })

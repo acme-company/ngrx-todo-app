@@ -1,0 +1,4 @@
+<span [ngClass]="{ 'label-default': (lastNotification | async)?.category === 0,'label-primary': (lastNotification | async)?.category === 1, 'label-success': (lastNotification | async)?.category === 2, 'label-info': (lastNotification | async)?.category === 3, 'label-warning': (lastNotification | async)?.category === 4, 'label-danger': (lastNotification | async)?.category === 5   }"
+  class="label pull-right" >
+  {{ (lastNotification | async)?.title }} 
+</span>
