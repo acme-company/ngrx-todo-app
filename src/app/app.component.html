@@ -1,0 +1,20 @@
+
+
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+           
+        </div>
+        <div class="col-md-4">
+            <todoList [items]="todos | async" (itemRemoved)="remove($event)"></todoList>
+            <button class="btn btn-md btn-default" (click)="openDialog()">Add</button>
+            <button class="btn btn-md btn-danger" (click)="triggerError1()">Trigger Error 1</button>
+            <button class="btn btn-md btn-danger" (click)="triggerError2()">Trigger Error 2</button>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+</div>
+
+<add-todo #dialog (onAdd)="add($event)"></add-todo>
