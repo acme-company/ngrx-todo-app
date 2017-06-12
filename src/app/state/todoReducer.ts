@@ -15,7 +15,7 @@ export interface Todo {
 export function todoReducer(todos: Todo[]=[], action: Action): Todo[] {
 	switch (action.type) {
         case TodoAction.ADD_TODO:
-            return [...todos, action.payload];
+            return   [...todos, action.payload];
         case TodoAction.ADD_TODOS:
             return todos.concat(action.payload);
         case TodoAction.REMOVE_TODO:

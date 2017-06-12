@@ -12,7 +12,7 @@ import { AppState } from "../state/appState";
 export class NotificationComponent implements AfterViewInit {
   lastNotification: Observable<Notification>;
   constructor(private store: Store<AppState>, private elementRef: ElementRef) {
-    this.lastNotification = store.select(t => t.notifications.lastNotification);
+    this.lastNotification = store.select<NotificationState>("notifications").map(t=>t.lastNotification);
   }
 
   ngAfterViewInit() {

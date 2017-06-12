@@ -3,6 +3,7 @@ import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
 import { ErrorState, ErrorInfo } from "../state/errorReducer";
 import { AppState } from "../state/appState";
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'error',
@@ -12,7 +13,7 @@ export class ErrorComponent implements AfterViewInit {
   @ViewChild('dialog') dialog:ElementRef;
   lastError: Observable<ErrorInfo>;
   constructor (private store: Store<AppState>) { 
-      this.lastError = store.select(t=>t.errors.lastError);
+      this.lastError = store.select<ErrorState>("errors").map(t=>t.lastError);
   }
  
   ngAfterViewInit() {
