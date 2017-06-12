@@ -35,7 +35,7 @@ export class TodoService {
             payload: todo
         });
 
-        this.notificationService.addNotification(`Added todo item ${this.id}`, "", NotificationCategory.SUCCESS);
+        this.notificationService.addNotification(`Added todo item ${this.id}`, todo.name, NotificationCategory.SUCCESS);
     }
 
     removeTodo(todo:Todo) {
@@ -43,6 +43,6 @@ export class TodoService {
             type: TodoAction.REMOVE_TODO,
             payload: todo
         });
-        this.notificationService.addNotification(`Removed todo item ${todo.id}`, "", NotificationCategory.INFO);
+        this.notificationService.addNotification(`Removed todo item ${todo.id}`, todo.name, NotificationCategory.INFO);
     }
 }

@@ -14,6 +14,7 @@ import { todoReducer } from './state/todoReducer';
 import { notificationReducer } from "./state/notificationReducer";
 import { NotificationComponent } from "./shared/notification.component";
 import { NotificationService } from "./services/notification.service";
+import { NotificationListComponent } from "./notificationList.component";
 
 @NgModule({
   imports:      [ 
@@ -32,7 +33,8 @@ import { NotificationService } from "./services/notification.service";
     AddTodoComponent, 
     DevErrorComponent, 
     ErrorComponent,
-    NotificationComponent 
+    NotificationComponent,
+    NotificationListComponent 
   ],
   providers: [
     { provide: ErrorHandler, useClass: GlobalErrorHandler },

@@ -1,0 +1,30 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-success" *ngFor="let item of items | async; let i = index">
+    <div class="panel-heading" role="tab" id="headingOne{{item.id}}">
+      <h4 class="panel-title">
+        <a [ngClass]="{collapsed: i > 0 }" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{item.id}}" aria-expanded="false" [attr.aria-controls]="'collapseOne' + item.id">
+            {{ item.title }} <span [ngClass]="getClass(item.category)"  class="label pull-right">{{getNotificationText(item.category)}}</span>
+        </a>
+      </h4>
+    </div>
+    <div [ngClass]="{in: i == 0 }" id="collapseOne{{item.id}}" class="panel-collapse collapse" role="tabpanel" [attr.aria-labelledby]="'headingOne' + item.id">
+      <div class="panel-body">
+        <table class="table">
+            <tr>
+                <td>Date:</td>
+                <td>{{ item.date }}</td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td [innerHTML]="item.description"></td>
+            </tr>
+        </table>
+            
+            
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

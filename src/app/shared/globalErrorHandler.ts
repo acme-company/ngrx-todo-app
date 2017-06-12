@@ -21,7 +21,7 @@ export class GlobalErrorHandler implements ErrorHandler {
             type: ErrorAction.ADD_ERROR,
             payload: errorInfo
         });
-        this.notificationService.addNotification(`An error occurred`, "", NotificationCategory.CRITICAL);
+        this.notificationService.addNotification(`An error occurred`, errorInfo.stacktrace.replace('\n','<br />'), NotificationCategory.CRITICAL);
         
     }
 }

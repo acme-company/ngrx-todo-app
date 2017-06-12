@@ -23,7 +23,7 @@ export class NotificationComponent implements AfterViewInit {
         $('span', this.elementRef.nativeElement).fadeIn(200);
         setTimeout(t => {
           $('span', this.elementRef.nativeElement).fadeOut(1000);
-        }, 1000);
+        }, 2000);
       }
     });
   }

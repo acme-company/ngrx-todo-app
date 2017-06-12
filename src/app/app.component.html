@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-           
+           <notification-list></notification-list>
         </div>
         <div class="col-md-4">
             <todoList [items]="todos | async" (itemRemoved)="remove($event)"></todoList>
