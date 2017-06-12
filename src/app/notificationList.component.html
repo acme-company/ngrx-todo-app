@@ -9,18 +9,19 @@
     </div>
     <div [ngClass]="{in: i == 0 }" id="collapseOne{{item.id}}" class="panel-collapse collapse" role="tabpanel" [attr.aria-labelledby]="'headingOne' + item.id">
       <div class="panel-body">
-        <table class="table">
-            <tr>
-                <td>Date:</td>
-                <td>{{ item.date }}</td>
-            </tr>
-            <tr>
-                <td>Description:</td>
-                <td [innerHTML]="item.description"></td>
-            </tr>
-        </table>
-            
-            
+        <div class="table">
+            <div class="row">
+                <div class="col-xs-3 text-right"><b>Date</b></div>
+                <div class="col-xs-9">{{ item.date }}</div>
+            </div>
+            <div class="row">
+                <hr />
+            </div>
+            <div class="row">
+                <div class="col-xs-3 text-right"><b>Description</b></div>
+                <div class="col-xs-9" style="overflow-x:auto" [innerHTML]="item.description"></div>
+            </div>
+        </div> 
       </div>
     </div>
   </div>

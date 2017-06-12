@@ -41,6 +41,6 @@ import { NotificationListComponent } from "./notificationList.component";
     TodoService,
     NotificationService
   ],
-  bootstrap:    [ AppComponent, DevErrorComponent ]
+  bootstrap:    [ AppComponent, ErrorComponent ]
 })
 export class AppModule { }
