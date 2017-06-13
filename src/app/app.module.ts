@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent }  from './app.component';
 import { StoreModule } from '@ngrx/store';
-import { TodoService } from "./services/todo.service";
 import { TodoListComponent } from "./todoList.component";
 import { AddTodoComponent } from "./addTodo.component";
 import { ErrorComponent } from "./shared/error.component";
@@ -13,13 +12,15 @@ import { errorReducer } from "./state/errorReducer";
 import { todoReducer } from './state/todoReducer';
 import { notificationReducer } from "./state/notificationReducer";
 import { NotificationComponent } from "./shared/notification.component";
-import { NotificationService } from "./services/notification.service";
 import { NotificationListComponent } from "./notificationList.component";
+import { EffectsModule } from '@ngrx/effects';
+import { TodoEffects } from './effects/todoEffects';
 
 @NgModule({
   imports:      [ 
     BrowserModule,
     ReactiveFormsModule,
+    EffectsModule.run(TodoEffects),
     StoreModule.provideStore(
       { 
           todos: todoReducer, 
@@ -37,9 +38,7 @@ import { NotificationListComponent } from "./notificationList.component";
     NotificationListComponent 
   ],
   providers: [
-    { provide: ErrorHandler, useClass: GlobalErrorHandler },
-    TodoService,
-    NotificationService
+    { provide: ErrorHandler, useClass: GlobalErrorHandler }
   ],
   bootstrap:    [ AppComponent, ErrorComponent ]
 })

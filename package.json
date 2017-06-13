@@ -40,6 +40,7 @@
     "@angular/platform-browser-dynamic": "^4.1.2",
     "@angular/router": "^4.1.2",
     "@ngrx/core": "^1.2.0",
+    "@ngrx/effects": "^2.0.3",
     "@ngrx/store": "^2.2.2",
     "@types/bootstrap": "^3.3.33",
     "@types/jquery": "^2.0.46",

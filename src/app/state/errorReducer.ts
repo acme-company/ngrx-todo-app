@@ -1,8 +1,5 @@
 import { ActionReducer, Action} from '@ngrx/store';
-
-export class ErrorAction {
-    public static ADD_ERROR: string = "ADD_ERROR"
-}
+import * as errors from '../actions/errors';
 
 export interface ErrorInfo {
     name: string;
@@ -23,8 +20,7 @@ let initialState: ErrorState = {
 
 export function errorReducer(state: ErrorState = initialState, action: Action): ErrorState {
 	switch (action.type) {
-        case ErrorAction.ADD_ERROR:
-            console.log(action.payload);
+        case errors.ActionTypes.ADD_ERROR:
             return { 
                 lastError: action.payload,
                 errors: [...state.errors, action.payload] 

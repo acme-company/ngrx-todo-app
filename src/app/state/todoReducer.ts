@@ -1,10 +1,6 @@
 import { ActionReducer, Action} from '@ngrx/store';
+import * as todo from '../actions/todos';
 
-export class TodoAction {
-    public static ADD_TODOS: string = "ADD_TODOS"
-    public static ADD_TODO: string = "ADD_TODO";
-    public static REMOVE_TODO: string = "REMOVE_TODO";
-}
 
 export interface Todo {
     id: number;
@@ -14,11 +10,12 @@ export interface Todo {
 
 export function todoReducer(todos: Todo[]=[], action: Action): Todo[] {
 	switch (action.type) {
-        case TodoAction.ADD_TODO:
+        case todo.ActionTypes.ADD_TODO:
+            action.payload.id = todos.length == 0 ? 1 : todos.map(t=>t.id).sort().reverse()[0] + 1;
             return   [...todos, action.payload];
-        case TodoAction.ADD_TODOS:
+        case todo.ActionTypes.ADD_TODOS:
             return todos.concat(action.payload);
-        case TodoAction.REMOVE_TODO:
+        case todo.ActionTypes.REMOVE_TODO:
             return todos.filter(t=>t.id !== action.payload.id);
 		default:
 			return todos;

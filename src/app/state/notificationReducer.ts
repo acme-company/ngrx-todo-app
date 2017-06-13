@@ -1,9 +1,5 @@
 import { ActionReducer, Action} from '@ngrx/store';
-
-export class NotificationAction {
-    public static ADD_NOTIFICATION: string = "ADD_NOTIFICATION";
-    public static DISMISS_NOTIFICATION: string = "DISMISS_NOTIFICATION";
-}
+import * as notifications from '../actions/notifications';
 
 export enum NotificationCategory {
     DEFAULT = 0, // default
@@ -34,13 +30,16 @@ let initialState: NotificationState = {
 };
 
 export function notificationReducer(state: NotificationState = initialState, action: Action): NotificationState {
+
+    
 	switch (action.type) {
-        case NotificationAction.ADD_NOTIFICATION:
+        case notifications.ActionTypes.ADD_NOTIFICATION:
+            action.payload.id = state.notifications.length == 0 ? 1 : state.notifications.map(t=>t.id).sort().reverse()[0] + 1;
             return { 
                 lastNotification: action.payload,
                 notifications: [...state.notifications, action.payload] 
             };
-        case NotificationAction.DISMISS_NOTIFICATION:
+        case notifications.ActionTypes.DISMISS_NOTIFICATION:
             let notification = state.notifications.find(t=>t.id === action.payload.id);
             if (notification != null)
                 notification[0].dismissed = true;
