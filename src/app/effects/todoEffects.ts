@@ -58,9 +58,15 @@ export class TodoEffects {
         
     }
 
+    getNextId(todos:any[]) {
+        return todos.length === 0 ? 1 :
+            todos.map(t=>t.id).sort().reverse()[0];
+    }
+
     @Effect() addTodo$ = this.actions$
         .ofType(todosApi.ActionTypes.API_ADD_TODO)
-        .map(action => action.payload)
+        .withLatestFrom(this.store)
+        .map(([action, state]) => { action.payload.id = this.getNextId(state.todos); return action.payload; })
         .mergeMap((todo: Todo) =>
          [
             new todos.AddTodoAction(todo),
