@@ -1,8 +1,8 @@
 import { Component, Inject, Input, ChangeDetectionStrategy, EventEmitter, Output, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
-import { NotificationState, Notification } from "../state/notificationReducer";
-import { AppState } from "../state/appState";
+import { NotificationState, Notification } from "../reducers/notificationReducer";
+import { AppState } from "../reducers/appState";
 
 
 @Component({

@@ -11,7 +11,8 @@ export interface Todo {
 export function todoReducer(todos: Todo[]=[], action: Action): Todo[] {
 	switch (action.type) {
         case todo.ActionTypes.ADD_TODO:
-            action.payload.id = todos.length == 0 ? 1 : todos.map(t=>t.id).sort().reverse()[0] + 1;
+            action.payload.id = todos.length === 0 ? 
+                1 : todos.map(t=>t.id).sort().reverse()[0] + 1;
             return   [...todos, action.payload];
         case todo.ActionTypes.ADD_TODOS:
             return todos.concat(action.payload);

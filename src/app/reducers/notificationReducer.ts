@@ -34,7 +34,8 @@ export function notificationReducer(state: NotificationState = initialState, act
     
 	switch (action.type) {
         case notifications.ActionTypes.ADD_NOTIFICATION:
-            action.payload.id = state.notifications.length == 0 ? 1 : state.notifications.map(t=>t.id).sort().reverse()[0] + 1;
+            action.payload.id = state.notifications.length === 0 ? 
+                1 : state.notifications.map(t=>t.id).sort().reverse()[0] + 1;
             return { 
                 lastNotification: action.payload,
                 notifications: [...state.notifications, action.payload] 

@@ -1,6 +1,6 @@
 
 import { Input, Output, EventEmitter, ChangeDetectionStrategy, Component } from "@angular/core";
-import { Todo } from "./state/todoReducer";
+import { Todo } from "./reducers/todoReducer";
 
 @Component({
   selector: 'todoList',

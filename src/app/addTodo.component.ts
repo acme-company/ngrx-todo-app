@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Todo } from "./state/todoReducer";
+import { Todo } from "./reducers/todoReducer";
 
 
 

@@ -1,8 +1,8 @@
 import { Component, Inject, Input, ChangeDetectionStrategy, EventEmitter, Output, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
-import { ErrorState, ErrorInfo } from "../state/errorReducer";
-import { AppState } from "../state/appState";
+import { ErrorState, ErrorInfo } from "../reducers/errorReducer";
+import { AppState } from "../reducers/appState";
 import 'rxjs/add/operator/map';
 
 @Component({

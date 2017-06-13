@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Todo } from "../state/todoReducer";
+import { Todo } from "../reducers/todoReducer";
 export const ActionTypes =
     {
         API_ADD_TODO: 'API_ADD_TODO',

@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 import { Store } from "@ngrx/store";
 import { AppState } from "./state/appState";
 import { Observable } from "rxjs/Observable";
-import { Notification, NotificationCategory, NotificationState } from './state/notificationReducer';
+import { Notification, NotificationCategory, NotificationState } from './reducers/notificationReducer';
 
 @Component({
     selector: 'notification-list',

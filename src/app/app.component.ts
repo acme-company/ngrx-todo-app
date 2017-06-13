@@ -1,8 +1,8 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
-import { AppState } from "./state/appState";
-import { Todo } from "./state/todoReducer";
+import { AppState } from "./reducers/appState";
+import { Todo } from "./reducers/todoReducer";
 import * as todosApi from './actions/todos.api';
 
 @Component({
@@ -12,14 +12,11 @@ import * as todosApi from './actions/todos.api';
 export class AppComponent {
   @ViewChild('dialog') dialog:ElementRef;
   todos: Observable<Todo[]>;
-  id: number;
+
   constructor(private store: Store<AppState>) {
     this.todos = store.select('todos');
     this.store.dispatch(new todosApi.LoadTodosAction([]));
-    this.todos.subscribe(t=> {
-      if (t != null)
-        this.id = t.map(x=>x.id).sort().reverse()[0];
-    });
+
     
   }
 
@@ -29,7 +26,7 @@ export class AppComponent {
 
 
   add(todo:Todo) {
-    todo.id = this.id + 1;
+
     this.store.dispatch(new todosApi.AddTodoAction(todo));
      $('#myModal',this.dialog.nativeElement).modal('hide');
   }
