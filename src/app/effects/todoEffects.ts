@@ -4,20 +4,22 @@ import { Observable } from 'rxjs/Observable';
 import {  Todo } from "../reducers/todoReducer";
 
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/mergeAll';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/timeout';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/observable/empty';
 import 'rxjs/add/operator/withLatestFrom';
 
-import * as todosApi from '../actions/todos.api';
 import * as todos from '../actions/todos';
 import * as notifications from '../actions/notifications';
+import * as todosApi from '../actions/todos.api';
 import * as errors from '../actions/errors';
 import {  NotificationCategory } from "../reducers/notificationReducer";
 import { Store } from "@ngrx/store";
@@ -31,8 +33,8 @@ export class TodoEffects {
 
     getErrorActions(error:Error) {
         return [
-            errors.AddErrorAction.create(error),
-            notifications.AddNotificationAction.create(
+            errors.addError(error),
+            notifications.addNotification(
                 error.message, error.stack, NotificationCategory.CRITICAL)
         ];
     }
@@ -44,6 +46,10 @@ export class TodoEffects {
 
     @Effect() addTodo$ = this.actions$
         .ofType(todosApi.ActionTypes.API_ADD_TODO)
+        .do(t=> { 
+            console.log(t.type); 
+            console.log(t.payload); 
+        })
         .withLatestFrom(this.store)
         .map(([action, state]) => { 
             action.payload.id = this.getNextId(state.todos); 
@@ -51,19 +57,23 @@ export class TodoEffects {
         })
         .mergeMap((todo: Todo) =>
          [
-            new todos.AddTodoAction(todo),
-            notifications.AddNotificationAction.create(
+            todos.addTodo(todo.name),
+            notifications.addNotification(
                 `Added todo item ${todo.id}`, todo.name, NotificationCategory.SUCCESS)
         ])  
         .catch(error => Observable.from(this.getErrorActions(error)));
 
     @Effect() removeTodo$ = this.actions$
         .ofType(todosApi.ActionTypes.API_REMOVE_TODO)
+        .do(t=> { 
+            console.log(t.type); 
+            console.log(t.payload); 
+        })
         .map(action => action.payload)
         .mergeMap((todo: Todo) =>
          [
-            new todos.RemoveTodoAction(todo),
-            notifications.AddNotificationAction.create(
+            todos.removeTodo(todo),
+            notifications.addNotification(
                 `Removed todo item ${todo.id}`, todo.name, NotificationCategory.INFO)
         ])      
         .catch(error => Observable.from(this.getErrorActions(error)));
@@ -71,15 +81,19 @@ export class TodoEffects {
 
     @Effect() loadTodos$ = this.actions$
         .ofType(todosApi.ActionTypes.API_LOAD_TODOS)
+        .do(t=> { 
+            console.log(t.type); 
+            console.log(t.payload); 
+        })
         .withLatestFrom(this.store)
         .mergeMap(([action, state]) => 
          [
-            new todos.AddTodosAction([
+            todos.addTodos([
                 { id: 1, name: 'Groceries'},
                 { id: 2, name: 'Garbage'},
                 { id: 3, name: 'Dishes'}
             ]),
-            notifications.AddNotificationAction.create(
+            notifications.addNotification(
                 `Loaded 3 items`, 'Initial Load', NotificationCategory.INFO)
         ])      
         .catch(error => Observable.from(this.getErrorActions(error)));

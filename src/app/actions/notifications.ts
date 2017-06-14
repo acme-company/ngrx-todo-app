@@ -11,16 +11,6 @@ export class AddNotificationAction implements Action {
     constructor(public payload: Notification) {
     }
 
-    public static create(title: string, description: string, category: NotificationCategory) {
-        return new AddNotificationAction({
-            id: 0,
-            title: title,
-            description: description,
-            dismissed: false,
-            date: new Date(),
-            category: category
-        });
-    }
 }
 
 export class DismissNotificationAction implements Action {
@@ -28,5 +18,17 @@ export class DismissNotificationAction implements Action {
     constructor(public payload: Notification) {
     }
 }
+
+export function addNotification(title: string, description: string, category: NotificationCategory) {
+    return new AddNotificationAction({
+        id: 0,
+        title: title, 
+        description: description,
+        category: category,
+        dismissed: false, 
+        date: new Date()
+    });
+}
+
 export type Actions = AddNotificationAction | DismissNotificationAction;
 

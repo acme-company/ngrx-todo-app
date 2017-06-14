@@ -9,15 +9,16 @@ export class AddErrorAction implements Action {
     type = ActionTypes.ADD_ERROR; 
     constructor(public payload:ErrorInfo) { 
     } 
-
-    public static create(error: Error) {
-        return new AddErrorAction({
-            name: error.name,
-            message: error.message,
-            stacktrace: error.stack,
-            error: error});
-    }
 } 
+
+export function addError(error:Error) {
+    return new AddErrorAction({
+        name: error.name, 
+        message: error.message,
+        stacktrace: error.stack,
+        error: error
+    });
+}
 
 
 export type Actions = AddErrorAction;

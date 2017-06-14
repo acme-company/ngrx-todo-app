@@ -27,6 +27,19 @@ export class RemoveTodoAction implements Action {
      } 
 }
 
+export function addTodo(name: string) {
+    return new AddTodoAction({ id: 0, name: name});
+}
+
+export function removeTodo(todo:Todo) {
+    return new RemoveTodoAction(todo);
+}
+
+export function loadTodos() {
+    return new LoadTodosAction([]);
+}
+
+
 export type Actions = 
     AddTodoAction  | 
     LoadTodosAction |
