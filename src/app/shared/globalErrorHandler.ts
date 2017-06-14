@@ -12,6 +12,7 @@ export class GlobalErrorHandler implements ErrorHandler {
 
     }
     handleError(error: Error) {
+        
         this.store.dispatch(errors.addError(error));
         this.store.dispatch(notifications.addNotification(
             'An error occurred',

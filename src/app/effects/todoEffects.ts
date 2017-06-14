@@ -32,6 +32,7 @@ export class TodoEffects {
     }
 
     getErrorActions(error:Error) {
+        
         return [
             errors.addError(error),
             notifications.addNotification(
@@ -47,8 +48,7 @@ export class TodoEffects {
     @Effect() addTodo$ = this.actions$
         .ofType(todosApi.ActionTypes.API_ADD_TODO)
         .do(t=> { 
-            console.log(t.type); 
-            console.log(t.payload); 
+            console.log(t);
         })
         .withLatestFrom(this.store)
         .map(([action, state]) => { 
@@ -66,8 +66,7 @@ export class TodoEffects {
     @Effect() removeTodo$ = this.actions$
         .ofType(todosApi.ActionTypes.API_REMOVE_TODO)
         .do(t=> { 
-            console.log(t.type); 
-            console.log(t.payload); 
+            console.log(t);
         })
         .map(action => action.payload)
         .mergeMap((todo: Todo) =>
@@ -82,19 +81,14 @@ export class TodoEffects {
     @Effect() loadTodos$ = this.actions$
         .ofType(todosApi.ActionTypes.API_LOAD_TODOS)
         .do(t=> { 
-            console.log(t.type); 
-            console.log(t.payload); 
+            console.log(t);
         })
         .withLatestFrom(this.store)
         .mergeMap(([action, state]) => 
          [
-            todos.addTodos([
-                { id: 1, name: 'Groceries'},
-                { id: 2, name: 'Garbage'},
-                { id: 3, name: 'Dishes'}
-            ]),
+            todos.addTodos(action.payload),
             notifications.addNotification(
-                `Loaded 3 items`, 'Initial Load', NotificationCategory.INFO)
+                `Loaded ${action.payload.length} items`, 'Initial Load', NotificationCategory.INFO)
         ])      
         .catch(error => Observable.from(this.getErrorActions(error)));
 }

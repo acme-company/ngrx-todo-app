@@ -9,6 +9,10 @@ export interface Todo {
 
 
 export function todoReducer(todos: Todo[]=[], action: Action): Todo[] {
+    if (todo.ActionTypes.hasOwnProperty(action.type)) {
+        console.log(action);
+    }
+    
 	switch (action.type) {
         case todo.ActionTypes.ADD_TODO:
             action.payload.id = todos.length === 0 ? 

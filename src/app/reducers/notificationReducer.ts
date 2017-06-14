@@ -30,8 +30,11 @@ let initialState: NotificationState = {
 };
 
 export function notificationReducer(state: NotificationState = initialState, action: Action): NotificationState {
-
+    if (notifications.ActionTypes.hasOwnProperty(action.type)) {
+        console.log(action);
+    }
     
+
 	switch (action.type) {
         case notifications.ActionTypes.ADD_NOTIFICATION:
             action.payload.id = state.notifications.length === 0 ? 

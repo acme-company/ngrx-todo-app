@@ -35,8 +35,8 @@ export function removeTodo(todo:Todo) {
     return new RemoveTodoAction(todo);
 }
 
-export function loadTodos() {
-    return new LoadTodosAction([]);
+export function loadTodos(todos:Todo[]) {
+    return new LoadTodosAction(todos);
 }
 
 

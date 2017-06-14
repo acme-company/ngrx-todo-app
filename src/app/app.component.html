@@ -1,10 +1,9 @@
-
-
 <br />
+
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-           <notification-list></notification-list>
+            <notification-list></notification-list>
         </div>
         <div class="col-md-4">
             <todoList [items]="todos | async" (itemRemoved)="remove($event)"></todoList>
@@ -13,6 +12,43 @@
             <button class="btn btn-md btn-danger" (click)="triggerError2()">Trigger Error 2</button>
         </div>
         <div class="col-md-4">
+            <div class="panel-group">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            Todo State
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <pre>{{ (todos | async) | json }}
+            </pre>
+            
+
+            <div class="panel-group">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            Notifications State
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <pre>{{ (notifications | async) | json }}
+            </pre>
+            
+            <div class="panel-group">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            Errors State
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <pre>{{ (errors | async) | json }}
+            </pre>
+
         </div>
     </div>
 </div>

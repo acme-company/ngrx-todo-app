@@ -16,7 +16,7 @@ export function addError(error:Error) {
         name: error.name, 
         message: error.message,
         stacktrace: error.stack,
-        error: error
+        error: null
     });
 }
 
