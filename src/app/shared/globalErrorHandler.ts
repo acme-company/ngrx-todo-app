@@ -13,19 +13,21 @@ export class GlobalErrorHandler implements ErrorHandler {
 
     }
     handleError(error: Error) {
-        
-        this.store.dispatch(errors.addError(error));
-        this.store.dispatch(notifications.addNotification(
-            'An error occurred',
-            error.stack.replace('\n','<br />'),
-            NotificationCategory.CRITICAL));
+        [
+            errors.addError(error),
+            notifications.addNotification(
+                'An error occurred',
+                error.stack.replace('\n','<br />'),
+                NotificationCategory.CRITICAL)   
+        ].forEach(t=> this.store.dispatch(t));
 
-        this.store.dispatch(actions.addAction(notifications.addNotification(
-            'An error occurred',
-            error.stack.replace('\n','<br />'),
-            NotificationCategory.CRITICAL), 'reducer'));
-
-        this.store.dispatch(actions.addAction(errors.addError(error),'reducer'));
+        [
+            actions.addAction(notifications.addNotification(
+                'An error occurred',
+                error.stack.replace('\n','<br />'),
+                NotificationCategory.CRITICAL), 'reducer'),
+            actions.addAction(errors.addError(error),'reducer') 
+        ].forEach(t=> this.store.dispatch(t));
         
     }
 }
