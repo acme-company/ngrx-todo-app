@@ -10,6 +10,26 @@
             <button class="btn btn-md btn-default" (click)="openDialog()">Add</button>
             <button class="btn btn-md btn-danger" (click)="triggerError1()">Trigger Error 1</button>
             <button class="btn btn-md btn-danger" (click)="triggerError2()">Trigger Error 2</button>
+            <br />
+            <br />
+
+            <div class="panel panel-primary">
+                <!-- Default panel contents -->
+                <div class="panel-heading">Actions</div>
+                <div class="panel-body">
+                    <p>A log history of all actions</p>
+                </div>
+
+                <!-- List group -->
+                <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let action of actions | async"> {{ action[0].type }}
+                        <span class="label label-primary pull-right">{{action[0].constructor.name}}</span>
+                        <span class="pull-right">&nbsp;</span>
+                        <span class="label label-success pull-right">{{action[1]}}</span>
+                    </li>
+                </ul>
+            </div>
+
         </div>
         <div class="col-md-4">
             <div class="panel-group">
@@ -17,14 +37,14 @@
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             Todo State
+                            <item-count></item-count>
                         </h4>
                     </div>
                 </div>
             </div>
             <pre>{{ (todos | async) | json }}
             </pre>
-            
-
+            <br />
             <div class="panel-group">
                 <div class="panel panel-success">
                     <div class="panel-heading">
@@ -36,7 +56,8 @@
             </div>
             <pre>{{ (notifications | async) | json }}
             </pre>
-            
+            <br />
+
             <div class="panel-group">
                 <div class="panel panel-success">
                     <div class="panel-heading">

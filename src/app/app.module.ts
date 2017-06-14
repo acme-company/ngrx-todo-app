@@ -1,7 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AppComponent }  from './app.component';
+import { AppComponent, ItemCountComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { TodoListComponent } from "./todoList.component";
 import { AddTodoComponent } from "./addTodo.component";
@@ -15,6 +15,7 @@ import { NotificationComponent } from "./shared/notification.component";
 import { NotificationListComponent } from "./notificationList.component";
 import { EffectsModule } from '@ngrx/effects';
 import { TodoEffects } from './effects/todoEffects';
+import { actionReducer } from "./reducers/actionReducer";
 
 @NgModule({
   imports:      [ 
@@ -25,7 +26,8 @@ import { TodoEffects } from './effects/todoEffects';
       { 
           todos: todoReducer, 
           errors: errorReducer,
-          notifications: notificationReducer
+          notifications: notificationReducer,
+          actions: actionReducer
       })
  ],
   declarations: [ 
@@ -35,7 +37,8 @@ import { TodoEffects } from './effects/todoEffects';
     DevErrorComponent, 
     ErrorComponent,
     NotificationComponent,
-    NotificationListComponent 
+    NotificationListComponent,
+    ItemCountComponent
   ],
   providers: [
     { provide: ErrorHandler, useClass: GlobalErrorHandler }

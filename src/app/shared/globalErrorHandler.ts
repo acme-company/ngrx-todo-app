@@ -5,6 +5,7 @@ import { AppState } from "../reducers/appState";
 import { NotificationCategory } from "../reducers/notificationReducer";
 import * as errors from '../actions/errors';
 import * as notifications from '../actions/notifications';
+import * as actions from '../actions/actions';
 
 
 export class GlobalErrorHandler implements ErrorHandler {
@@ -18,5 +19,13 @@ export class GlobalErrorHandler implements ErrorHandler {
             'An error occurred',
             error.stack.replace('\n','<br />'),
             NotificationCategory.CRITICAL));
+
+        this.store.dispatch(actions.addAction(notifications.addNotification(
+            'An error occurred',
+            error.stack.replace('\n','<br />'),
+            NotificationCategory.CRITICAL), 'reducer'));
+
+        this.store.dispatch(actions.addAction(errors.addError(error),'reducer'));
+        
     }
 }

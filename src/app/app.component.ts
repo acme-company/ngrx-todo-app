@@ -1,13 +1,29 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { Store } from "@ngrx/store";
+import { Component, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
+import { Store, Action } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
 import { AppState } from "./reducers/appState";
 import { Todo } from "./reducers/todoReducer";
 import * as todosApi from './actions/todos.api';
+import * as actions from './actions/actions';
 import 'rxjs/add/operator/debounce';
 import 'rxjs/add/observable/timer';
 import { NotificationState } from "./reducers/notificationReducer";
 import { ErrorState } from "./reducers/errorReducer";
+
+@Component({
+  selector: 'item-count',
+  template: `
+    <span class="badge pull-right">Total {{itemCount | async}} items</span>
+  `
+})
+export class ItemCountComponent {
+  itemCount: Observable<number>;
+  constructor(public store: Store<AppState>) {
+    this.itemCount = store.select<Todo[]>('todos').map(t=>t.length);
+  }
+}
+
+
 @Component({
   selector: 'app',
   templateUrl: './app.component.html'
@@ -17,18 +33,21 @@ export class AppComponent {
   todos: Observable<Todo[]>;
   notifications: Observable<NotificationState>;
   errors: Observable<ErrorState>;
+  actions: Observable<Action[]>;
 
   constructor(public store: Store<AppState>) {
     this.todos = store.select('todos');
     this.notifications = store.select('notifications');
     this.errors = store.select('errors');
-  
+    this.actions = store.select<Action[]>('actions').map(t=> t); // [...t].reverse());
     
     this.store.dispatch(todosApi.loadTodos([
       // { id: 1, name: 'Groceries' },
       // { id: 2, name: 'Garbage' },
       // { id: 3, name: 'Dishes' }
     ]));
+
+    this.store.dispatch(actions.addAction(todosApi.loadTodos([]),'effects'));
 
     this.store.debounce(t=>Observable.timer(1000)).withLatestFrom(t=>t).subscribe(t=> {
      console.log({ state: t  });
@@ -44,11 +63,13 @@ export class AppComponent {
   add(todo: Todo) {
 
     this.store.dispatch(todosApi.addTodo(todo.name));
+    this.store.dispatch(actions.addAction(todosApi.addTodo(todo.name), 'effects'));
     $('#myModal', this.dialog.nativeElement).modal('hide');
   }
 
   remove(todo: Todo) {
     this.store.dispatch(todosApi.removeTodo(todo));
+    this.store.dispatch(actions.addAction(todosApi.removeTodo(todo),'effects'));
   }
 
   triggerError1() {
