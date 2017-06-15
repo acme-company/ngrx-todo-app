@@ -15,7 +15,9 @@
 
             <div class="panel panel-primary">
                 <!-- Default panel contents -->
-                <div class="panel-heading">Actions</div>
+                <div class="panel-heading">Actions
+                     <item-count path="actions.length"></item-count>
+                </div>
                 <div class="panel-body">
                     <p>A log history of all actions</p>
                 </div>
@@ -23,9 +25,9 @@
                 <!-- List group -->
                 <ul class="list-group">
                     <li class="list-group-item" *ngFor="let action of actions | async"> {{ action[0].type }}
-                        <span class="label label-primary pull-right">{{action[0].constructor.name}}</span>
+                        <!--<span class="label label-primary pull-right">{{action[2]}}</span>-->
                         <span class="pull-right">&nbsp;</span>
-                        <span class="label label-success pull-right">{{action[1]}}</span>
+                        <span [ngClass]="{'label-danger': action[1] === 'effects', 'label-success': action[1] !== 'effects' }" class="label pull-right">{{action[1]}}</span>
                     </li>
                 </ul>
             </div>
@@ -37,7 +39,7 @@
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             Todo State
-                            <item-count></item-count>
+                            <item-count path="todos.length"></item-count>
                         </h4>
                     </div>
                 </div>
@@ -46,10 +48,11 @@
             </pre>
             <br />
             <div class="panel-group">
-                <div class="panel panel-info">
+                <div class="panel panel-success">
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             Notifications State
+                            <item-count path="notifications.notifications.length"></item-count>
                         </h4>
                     </div>
                 </div>
@@ -63,6 +66,8 @@
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             Errors State
+                            <item-count path="errors.errors.length"></item-count>
+
                         </h4>
                     </div>
                 </div>

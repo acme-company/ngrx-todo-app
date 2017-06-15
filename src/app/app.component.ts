@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnChanges, SimpleChanges, Input, AfterViewInit, OnInit } from '@angular/core';
 import { Store, Action } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
 import { AppState } from "./reducers/appState";
@@ -13,13 +13,17 @@ import { ErrorState } from "./reducers/errorReducer";
 @Component({
   selector: 'item-count',
   template: `
-    <span class="badge pull-right">Total {{itemCount | async}} items</span>
+    <span class="badge pull-right">{{itemCount | async}} items</span>
   `
 })
-export class ItemCountComponent {
+export class ItemCountComponent  {
   itemCount: Observable<number>;
-  constructor(public store: Store<AppState>) {
-    this.itemCount = store.select<Todo[]>('todos').map(t=>t.length);
+  constructor(public store: Store<AppState>, private elementRef:ElementRef) {
+    var path = this.elementRef.nativeElement.getAttribute('path');
+    var i = path.indexOf('.');
+    var state = path.substring(0, i);
+    var statePath = path.substring(i);
+    this.itemCount = this.store.select<Todo[]>(state).map(eval('t=>t' + statePath));
   }
 }
 
@@ -42,9 +46,9 @@ export class AppComponent {
     this.actions = store.select<Action[]>('actions').map(t=> t); // [...t].reverse());
     
     this.store.dispatch(todosApi.loadTodos([
-      // { id: 1, name: 'Groceries' },
-      // { id: 2, name: 'Garbage' },
-      // { id: 3, name: 'Dishes' }
+      { id: 1, name: 'Groceries' },
+      { id: 2, name: 'Garbage' },
+      { id: 3, name: 'Dishes' }
     ]));
 
     this.store.dispatch(actions.addAction(todosApi.loadTodos([]),'effects'));
