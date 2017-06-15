@@ -23,8 +23,42 @@ import * as todosApi from '../actions/todos.api';
 import * as errors from '../actions/errors';
 import * as actions from '../actions/actions';
 import { NotificationCategory } from "../reducers/notificationReducer";
-import { Store } from "@ngrx/store";
+import { Store, Action } from "@ngrx/store";
 import { AppState } from "../reducers/appState";
+
+function errorActions(error: Error) {
+    return [
+        errors.addError(error),
+        notifications.addNotification(error.message, error.stack, NotificationCategory.CRITICAL)
+    ];
+}
+
+function addTodoActions(todo: Todo) {
+    return [
+        todos.addTodo(todo.name),
+        notifications.addNotification(`Added todo item ${todo.id}`, todo.name, NotificationCategory.SUCCESS)
+    ];
+}
+
+function removeTodoActions(todo:Todo) {
+    return [
+        todos.removeTodo(todo),
+        notifications.addNotification(`Removed todo item ${todo.id}`, todo.name, NotificationCategory.INFO)
+    ];
+}
+
+function loadTodoActions(todoList: Todo[]) {
+    return [
+        todos.addTodos(todoList),
+        notifications.addNotification(`Loaded ${todoList.length} items`, 'Initial Load', NotificationCategory.INFO)
+    ];
+}
+
+
+function logActions(actionList:Action[]) {
+    return [...actionList].reverse().map(t=> actions.addAction(t, 'reducer'));
+}
+
 
 @Injectable()
 export class TodoEffects {
@@ -32,78 +66,34 @@ export class TodoEffects {
 
     }
 
-    getErrorActions(error: Error) {
-
-        return [
-            errors.addError(error),
-            notifications.addNotification(
-                error.message, error.stack, NotificationCategory.CRITICAL)
-        ];
-    }
 
     getNextId(todos: any[]) {
         return todos.length === 0 ? 1 :
-            todos.map(t => t.id).sort().reverse()[0];
+            todos.map(t => t.id).sort().reverse()[0] + 1;
     }
 
     @Effect() addTodo$ = this.actions$
         .ofType(todosApi.ActionTypes.API_ADD_TODO)
-        .do(t => {
-            console.log(t);
-        })
         .withLatestFrom(this.store)
         .map(([action, state]) => {
             action.payload.id = this.getNextId(state.todos);
             return action.payload;
         })
-        .concatMap((todo: Todo) =>
-            [
-                todos.addTodo(todo.name),
-                notifications.addNotification(
-                    `Added todo item ${todo.id}`, todo.name, NotificationCategory.SUCCESS),
-
-                actions.addAction(notifications.addNotification(
-                    `Added todo item ${todo.id}`, todo.name, NotificationCategory.SUCCESS), 'reducer'),
-                actions.addAction(todos.addTodo(todo.name), 'reducer')
-
-            ])
-        .catch(error => Observable.from(this.getErrorActions(error)));
+        .map((todo: Todo) => addTodoActions(todo))
+        .concatMap((actionList:Action[])=> actionList.concat(logActions(actionList)))
+        .catch(error => Observable.from(errorActions(error)));
 
     @Effect() removeTodo$ = this.actions$
         .ofType(todosApi.ActionTypes.API_REMOVE_TODO)
-        .do(t => {
-            console.log(t);
-        })
         .map(action => action.payload)
-        .concatMap((todo: Todo) =>
-            [
-                todos.removeTodo(todo),
-                notifications.addNotification(
-                    `Removed todo item ${todo.id}`, todo.name, NotificationCategory.INFO),
-
-                actions.addAction(notifications.addNotification(
-                    `Removed todo item ${todo.id}`, todo.name, NotificationCategory.INFO), 'reducer'),
-                actions.addAction(todos.removeTodo(todo), 'reducer')
-            ])
-        .catch(error => Observable.from(this.getErrorActions(error)));
-
+        .map((todo: Todo) => removeTodoActions(todo))
+        .concatMap((actionList:Action[])=> actionList.concat(logActions(actionList)))
+        .catch(error => Observable.from(errorActions(error)));
 
     @Effect() loadTodos$ = this.actions$
         .ofType(todosApi.ActionTypes.API_LOAD_TODOS)
-        .do(t => {
-            console.log(t);
-        })
         .withLatestFrom(this.store)
-        .concatMap(([action, state]) =>
-            [
-                todos.addTodos(action.payload),
-                notifications.addNotification(
-                    `Loaded ${action.payload.length} items`, 'Initial Load', NotificationCategory.INFO),
-
-                actions.addAction(notifications.addNotification(
-                    `Loaded ${action.payload.length} items`, 'Initial Load', NotificationCategory.INFO), 'reducer'),
-                actions.addAction(todos.addTodos(action.payload), 'reducer')
-
-            ])
-        .catch(error => Observable.from(this.getErrorActions(error)));
+        .map(([action, state]) => loadTodoActions(action.payload))
+        .concatMap((actionList:Action[])=> actionList.concat(logActions(actionList)))
+        .catch(error => Observable.from(errorActions(error)));
 }
