@@ -29,7 +29,7 @@ import { AppState } from "../reducers/appState";
 function errorActions(error: Error) {
     return [
         errors.addError(error),
-        notifications.addNotification(error.message, error.stack, NotificationCategory.CRITICAL)
+        notifications.addNotification('An error occurred', error.stack, NotificationCategory.CRITICAL)
     ];
 }
 
