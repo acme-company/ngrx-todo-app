@@ -75,10 +75,8 @@ export class TodoEffects {
     @Effect() addTodo$ = this.actions$
         .ofType(todosApi.ActionTypes.API_ADD_TODO)
         .withLatestFrom(this.store)
-        .map(([action, state]) => {
-            action.payload.id = this.getNextId(state.todos);
-            return action.payload;
-        })
+        .do(([action, state]) => {action.payload.id = this.getNextId(state.todos)})
+        .map(([action, state]) => action.payload)
         .map((todo: Todo) => addTodoActions(todo))
         .concatMap((actionList:Action[])=> actionList.concat(logActions(actionList)))
         .catch(error => Observable.from(errorActions(error)));
