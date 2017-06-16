@@ -28,35 +28,35 @@ import { AppState } from "../reducers/appState";
 
 function errorActions(error: Error) {
     return [
-        errors.add(error),
-        notifications.addNotification('An error occurred', error.stack, NotificationCategory.CRITICAL)
+        errors.to.add(error),
+        notifications.to.add('An error occurred', error.stack, NotificationCategory.CRITICAL)
     ];
 }
 
 function addTodoActions(todo: Todo) {
     return [
-        todos.add(todo.name),
-        notifications.addNotification(`Added todo item ${todo.id}`, todo.name, NotificationCategory.SUCCESS)
+        todos.to.add(todo.name),
+        notifications.to.add(`Added todo item ${todo.id}`, todo.name, NotificationCategory.SUCCESS)
     ];
 }
 
 function removeTodoActions(todo:Todo) {
     return [
-        todos.remove(todo),
-        notifications.addNotification(`Removed todo item ${todo.id}`, todo.name, NotificationCategory.INFO)
+        todos.to.remove(todo),
+        notifications.to.add(`Removed todo item ${todo.id}`, todo.name, NotificationCategory.INFO)
     ];
 }
 
 function loadTodoActions(todoList: Todo[]) {
     return [
-        todos.addAll(todoList),
-        notifications.addNotification(`Loaded ${todoList.length} items`, 'Initial Load', NotificationCategory.INFO)
+        todos.to.addAll(todoList),
+        notifications.to.add(`Loaded ${todoList.length} items`, 'Initial Load', NotificationCategory.INFO)
     ];
 }
 
 
 function logActions(actionList:Action[]) {
-    return [...actionList].reverse().map(t=> actions.add(t, 'reducer'));
+    return [...actionList].reverse().map(t=> actions.to.add(t, 'reducer'));
 }
 
 

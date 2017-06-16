@@ -19,8 +19,9 @@ export class DismissNotificationAction implements Action {
     }
 }
 
-export function addNotification(title: string, description: string, category: NotificationCategory) {
-    return new AddNotificationAction({
+export class to {
+    public static add = (title: string, description: string, category: NotificationCategory) =>
+    new AddNotificationAction({
         id: 0,
         title: title, 
         description: description,
@@ -30,15 +31,5 @@ export function addNotification(title: string, description: string, category: No
     });
 }
 
-export const add = (title: string, description: string, category: NotificationCategory) =>
-    new AddNotificationAction({
-        id: 0,
-        title: title, 
-        description: description,
-        category: category,
-        dismissed: false, 
-        date: new Date()
-    });
-    
 export type Actions = AddNotificationAction | DismissNotificationAction;
 

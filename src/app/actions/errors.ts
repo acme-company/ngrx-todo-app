@@ -11,21 +11,15 @@ export class AddErrorAction implements Action {
     } 
 } 
 
-export function addError(error:Error) {
-    return new AddErrorAction({
+export class to {
+    public static add = (error:Error) => new AddErrorAction({
         name: error.name, 
         message: error.message,
         stacktrace: error.stack,
         error: null
     });
-}
 
-export const add = (error:Error) => new AddErrorAction({
-        name: error.name, 
-        message: error.message,
-        stacktrace: error.stack,
-        error: null
-    });
+}
 
 
 export type Actions = AddErrorAction;

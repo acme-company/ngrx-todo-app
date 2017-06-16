@@ -27,9 +27,13 @@ export class RemoveTodoAction implements Action {
      } 
 }
 
-export const add = (name:string) => new AddTodoAction({ id: 0, name: name});
-export const addAll = (todos: Todo[]) => new AddTodosAction(todos);
-export const remove = (todo:Todo) => new RemoveTodoAction(todo);
+export class to {
+    public static add = (name:string) => new AddTodoAction({ id: 0, name: name});
+    public static addAll = (todos: Todo[]) => new AddTodosAction(todos);
+    public static remove = (todo:Todo) => new RemoveTodoAction(todo);
+
+}
+
 
 export type Actions = 
     AddTodoAction | RemoveTodoAction;

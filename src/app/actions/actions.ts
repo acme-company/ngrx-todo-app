@@ -10,7 +10,7 @@ export class AddAction implements Action {
     } 
 }
  
-
-export const add = (action:Action, reducer:string) => new AddAction([action, reducer]);
-
+export class to {
+    public static add = (action:Action, reducer:string) => new AddAction([action, reducer]);
+}
 export type Actions = AddAction;

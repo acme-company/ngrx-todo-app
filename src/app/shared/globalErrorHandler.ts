@@ -10,13 +10,13 @@ import * as actions from '../actions/actions';
 
 function errorActions(error: Error) {
     return [
-        errors.addError(error),
-        notifications.addNotification('An error occurred', error.stack.replace(/\n/g, '<br />'), NotificationCategory.CRITICAL)
+        errors.to.add(error),
+        notifications.to.add('An error occurred', error.stack.replace(/\n/g, '<br />'), NotificationCategory.CRITICAL)
     ];
 }
 
 function logActions(actionList:Action[]) {
-    return [...actionList].reverse().map(t=> actions.add(t, 'reducer'));
+    return [...actionList].reverse().map(t=> actions.to.add(t, 'reducer'));
 }
 
 export class GlobalErrorHandler implements ErrorHandler {

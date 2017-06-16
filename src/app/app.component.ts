@@ -45,13 +45,13 @@ export class AppComponent {
     this.errors = store.select('errors');
     this.actions = store.select<Action[]>('actions').map(t=> t); // [...t].reverse());
     
-    this.store.dispatch(todosApi.load([
+    this.store.dispatch(todosApi.to.load([
       { id: 1, name: 'Groceries' },
       { id: 2, name: 'Garbage' },
       { id: 3, name: 'Dishes' }
     ]));
 
-    this.store.dispatch(actions.add(todosApi.load([]),'effects'));
+    this.store.dispatch(actions.to.add(todosApi.to.load([]),'effects'));
 
     this.store.debounce(t=>Observable.timer(1000)).withLatestFrom(t=>t).subscribe(t=> {
      console.log({ state: t  });
@@ -66,14 +66,14 @@ export class AppComponent {
 
   add(todo: Todo) {
 
-    this.store.dispatch(todosApi.add(todo.name));
-    this.store.dispatch(actions.add(todosApi.add(todo.name), 'effects'));
+    this.store.dispatch(todosApi.to.add(todo.name));
+    this.store.dispatch(actions.to.add(todosApi.to.add(todo.name), 'effects'));
     $('#myModal', this.dialog.nativeElement).modal('hide');
   }
 
   remove(todo: Todo) {
-    this.store.dispatch(todosApi.remove(todo));
-    this.store.dispatch(actions.add(todosApi.remove(todo),'effects'));
+    this.store.dispatch(todosApi.to.remove(todo));
+    this.store.dispatch(actions.to.add(todosApi.to.remove(todo),'effects'));
   }
 
   triggerError1() {
