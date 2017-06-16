@@ -28,35 +28,35 @@ import { AppState } from "../reducers/appState";
 
 function errorActions(error: Error) {
     return [
-        errors.addError(error),
+        errors.add(error),
         notifications.addNotification('An error occurred', error.stack, NotificationCategory.CRITICAL)
     ];
 }
 
 function addTodoActions(todo: Todo) {
     return [
-        todos.addTodo(todo.name),
+        todos.add(todo.name),
         notifications.addNotification(`Added todo item ${todo.id}`, todo.name, NotificationCategory.SUCCESS)
     ];
 }
 
 function removeTodoActions(todo:Todo) {
     return [
-        todos.removeTodo(todo),
+        todos.remove(todo),
         notifications.addNotification(`Removed todo item ${todo.id}`, todo.name, NotificationCategory.INFO)
     ];
 }
 
 function loadTodoActions(todoList: Todo[]) {
     return [
-        todos.addTodos(todoList),
+        todos.addAll(todoList),
         notifications.addNotification(`Loaded ${todoList.length} items`, 'Initial Load', NotificationCategory.INFO)
     ];
 }
 
 
 function logActions(actionList:Action[]) {
-    return [...actionList].reverse().map(t=> actions.addAction(t, 'reducer'));
+    return [...actionList].reverse().map(t=> actions.add(t, 'reducer'));
 }
 
 

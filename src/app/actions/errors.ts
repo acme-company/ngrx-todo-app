@@ -20,5 +20,12 @@ export function addError(error:Error) {
     });
 }
 
+export const add = (error:Error) => new AddErrorAction({
+        name: error.name, 
+        message: error.message,
+        stacktrace: error.stack,
+        error: null
+    });
+
 
 export type Actions = AddErrorAction;

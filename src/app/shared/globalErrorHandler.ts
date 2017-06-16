@@ -16,7 +16,7 @@ function errorActions(error: Error) {
 }
 
 function logActions(actionList:Action[]) {
-    return [...actionList].reverse().map(t=> actions.addAction(t, 'reducer'));
+    return [...actionList].reverse().map(t=> actions.add(t, 'reducer'));
 }
 
 export class GlobalErrorHandler implements ErrorHandler {

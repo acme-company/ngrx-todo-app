@@ -11,8 +11,6 @@ export class AddAction implements Action {
 }
  
 
-export function addAction(action:Action, reducer:string) {
-    return new AddAction([action, reducer]);
-}
+export const add = (action:Action, reducer:string) => new AddAction([action, reducer]);
 
 export type Actions = AddAction;
