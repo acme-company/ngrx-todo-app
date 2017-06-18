@@ -1,8 +1,16 @@
 {
   "todos": [
     {
-      "id": 24,
-      "name": "sdfsdfdsf"
+      "id": 1,
+      "name": "Take Out Garbage"
+    },
+    {
+      "id": 2,
+      "name": "Do Dishes"
+    },
+    {
+      "id": 3,
+      "name": "Mow Lawn"
     }
   ]
 }
