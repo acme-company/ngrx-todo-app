@@ -2,6 +2,14 @@
 
 Demo: https://acme-company.github.io/ngrx-todo-app
 
+Technology Stack:
+
+1.  Angular 4+
+2.  @ngrx/store
+3.  @ngrx/effects 
+4.  json-server (fake web API)
+5.  webpack
+
 # Install
 
 git clone https://github.com/acme-company/ngrx-todo-app.git
