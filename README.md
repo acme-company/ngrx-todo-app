@@ -5,7 +5,9 @@ Demo: https://acme-company.github.io/ngrx-todo-app
 # Install
 
 git clone https://github.com/acme-company/ngrx-todo-app.git
+
 cd ngrx-todo-app
+
 npm install 
 
 # Run
