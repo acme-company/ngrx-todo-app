@@ -10,6 +10,10 @@ Technology Stack:
 4.  json-server (fake web API)
 5.  webpack
 
+Demonstrates: 
+- Redux design pattern
+- Global error handler
+
 # Install
 
 git clone https://github.com/acme-company/ngrx-todo-app.git
