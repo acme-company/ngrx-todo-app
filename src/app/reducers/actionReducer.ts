@@ -3,9 +3,9 @@ import * as act from '../actions/actions';
 
 
 export function actionReducer(actions: Action[]=[], action: Action): Action[] {
-    if (act.ActionTypes.hasOwnProperty(action.type)) {
-        console.log(action);
-    }
+    // if (act.ActionTypes.hasOwnProperty(action.type)) {
+    //     console.log(action);
+    // }
     
 	switch (action.type) {
         case act.ActionTypes.ADD_ACTION:

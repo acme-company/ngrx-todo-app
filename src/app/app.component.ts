@@ -46,16 +46,16 @@ export class AppComponent {
     this.actions = store.select<Action[]>('actions').map(t=> t); // [...t].reverse());
     
     this.store.dispatch(todosApi.to.load([
-      { id: 1, name: 'Groceries' },
-      { id: 2, name: 'Garbage' },
-      { id: 3, name: 'Dishes' }
+      // { id: 1, name: 'Groceries' },
+      // { id: 2, name: 'Garbage' },
+      // { id: 3, name: 'Dishes' }
     ]));
 
     this.store.dispatch(actions.to.add(todosApi.to.load([]),'effects'));
 
-    this.store.debounce(t=>Observable.timer(1000)).withLatestFrom(t=>t).subscribe(t=> {
-     console.log({ state: t  });
-    });
+    // this.store.debounce(t=>Observable.timer(1000)).withLatestFrom(t=>t).subscribe(t=> {
+    //  console.log({ state: t  });
+    // });
     
   }
 

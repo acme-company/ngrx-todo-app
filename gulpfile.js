@@ -10,6 +10,13 @@ const open = require('open');
 const webpackConfig = require("./webpack.config.js");
 const WebpackDevServer = require("webpack-dev-server");
 
+gulp.task('json-server', () => {
+  return gulp.src('db.json')
+  .pipe(shell([
+    'json-server db.json'
+  ]));
+});
+
 // The development server (the recommended option for development)
 gulp.task("default", ["dev"]);
 
@@ -19,7 +26,8 @@ gulp.task("dev", ["webpack-dev-server"]);
 // Advantage: No server required, can run app from filesystem
 // Disadvantage: Requests are not blocked until bundle is available,
 //               can serve an old app on refresh
-gulp.task("build-dev", ["webpack:build-dev"], function() {
+gulp.task("build-dev", ["webpack:build-dev", "json-server"], function() {
+
 	gulp.watch(["src/**/*.ts","src/**/*.html"], ["webpack:build-dev"]);
 });
 

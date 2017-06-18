@@ -19,9 +19,9 @@ let initialState: ErrorState = {
 }
 
 export function errorReducer(state: ErrorState = initialState, action: Action): ErrorState {
-    if (errors.ActionTypes.hasOwnProperty(action.type)) {
-        console.log(action);
-    }
+    // if (errors.ActionTypes.hasOwnProperty(action.type)) {
+    //     console.log(action);
+    // }
     
 	switch (action.type) {
         case errors.ActionTypes.ADD_ERROR:

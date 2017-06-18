@@ -9,6 +9,7 @@ import * as actions from '../actions/actions';
 
 
 function errorActions(error: Error) {
+        console.log(error);
     return [
         errors.to.add(error),
         notifications.to.add('An error occurred', error.stack.replace(/\n/g, '<br />'), NotificationCategory.CRITICAL)

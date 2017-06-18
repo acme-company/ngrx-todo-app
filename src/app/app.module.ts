@@ -16,11 +16,13 @@ import { NotificationListComponent } from "./notificationList.component";
 import { EffectsModule } from '@ngrx/effects';
 import { TodoEffects } from './effects/todoEffects';
 import { actionReducer } from "./reducers/actionReducer";
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   imports:      [ 
     BrowserModule,
     ReactiveFormsModule,
+    HttpModule,
     EffectsModule.run(TodoEffects),
     StoreModule.provideStore(
       { 
