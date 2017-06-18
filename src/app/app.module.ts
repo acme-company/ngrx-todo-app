@@ -17,6 +17,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { TodoEffects } from './effects/todoEffects';
 import { actionReducer } from "./reducers/actionReducer";
 import { HttpModule } from '@angular/http';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   imports:      [ 
@@ -30,7 +31,10 @@ import { HttpModule } from '@angular/http';
           errors: errorReducer,
           notifications: notificationReducer,
           actions: actionReducer
-      })
+      }),
+     StoreDevtoolsModule.instrumentOnlyWithExtension({
+      maxAge: 5
+     })
  ],
   declarations: [ 
     AppComponent, 
